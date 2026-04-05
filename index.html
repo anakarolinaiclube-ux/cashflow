@@ -10,21 +10,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            /* Paleta refinada — harmônica e com menos saturação agressiva */
-            --bg-light: #f6f8fb;
-            --card-bg: #ffffff;
-            --border: #e4e9f0;
+            /* Paleta Dark Refinada */
+            --bg-light: #0b0f1a;      /* Fundo principal escuro */
+            --card-bg: #161d2f;       /* Fundo dos cards */
+            --border: #2d3748;        /* Bordas sutis */
 
-            --primary: #f97316;       /* laranja — CTAs */
+            --primary: #f97316;       /* laranja — permanece para CTAs */
             --primary-hover: #ea580c;
             --success: #10b981;       /* verde — valores financeiros */
-            --secondary: #7c6ff7;     /* roxo suavizado — destaques secundários */
-            --secondary-light: rgba(124,111,247,0.10);
-            --secondary-border: rgba(124,111,247,0.22);
+            --secondary: #818cf8;     /* roxo levemente mais vibrante para o dark */
+            --secondary-light: rgba(129, 140, 248, 0.15);
+            --secondary-border: rgba(129, 140, 248, 0.3);
 
-            --text-main: #1a2235;
-            --text-muted: #64748b;
-            --glow-orange: rgba(249,115,22,0.15);
+            --text-main: #f1f5f9;     /* Texto claro */
+            --text-muted: #94a3b8;    /* Texto secundário */
+            --glow-orange: rgba(249, 115, 22, 0.2);
         }
 
         /* ── RESET ── */
@@ -60,7 +60,6 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Itens do checklist surgem em cascata */
         .check-item {
             opacity: 0;
             transform: translateX(-24px);
@@ -70,9 +69,9 @@
 
         /* ── TOP BAR ── */
         .top-bar {
-            background: rgba(249,115,22,0.09);
-            border-bottom: 1px solid rgba(249,115,22,0.18);
-            color: var(--primary-hover);
+            background: rgba(249,115,22,0.15);
+            border-bottom: 1px solid rgba(249,115,22,0.3);
+            color: #fb923c;
             text-align: center;
             padding: 8px 15px;
             font-size: 0.85rem;
@@ -97,18 +96,17 @@
             letter-spacing: -1.5px;
             color: var(--text-main);
         }
-        /* Ícone circular colorido */
         .logo-icon {
             width: 38px;
             height: 38px;
             border-radius: 10px;
-            background: linear-gradient(135deg, var(--secondary), #a78bfa);
+            background: linear-gradient(135deg, var(--secondary), #6366f1);
             display: flex;
             align-items: center;
             justify-content: center;
             color: #fff;
             font-size: 1rem;
-            box-shadow: 0 4px 12px rgba(124,111,247,0.35);
+            box-shadow: 0 4px 12px rgba(129, 140, 248, 0.4);
             flex-shrink: 0;
         }
         .logo-meu { color: var(--secondary); }
@@ -136,13 +134,13 @@
         .btn-primary {
             background: var(--primary);
             color: white;
-            box-shadow: 0 10px 25px rgba(249,115,22,0.28);
+            box-shadow: 0 10px 25px rgba(249,115,22,0.3);
         }
-        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 15px 30px rgba(249,115,22,0.38); }
+        .btn-primary:hover { transform: translateY(-3px); background: var(--primary-hover); box-shadow: 0 15px 30px rgba(249,115,22,0.4); }
         .btn-success {
             background: var(--success);
             color: white;
-            box-shadow: 0 10px 25px rgba(16,185,129,0.22);
+            box-shadow: 0 10px 25px rgba(16,185,129,0.25);
         }
         .btn-success:hover { background: #059669; transform: translateY(-2px); }
         .btn-wrapper { width: 100%; padding: 0 10px; max-width: 360px; margin: 0 auto; display: flex; justify-content: center; }
@@ -174,7 +172,7 @@
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
-            background: var(--secondary);
+            background: #6366f1;
             padding: 13px 0;
             margin: 44px 0;
             display: flex;
@@ -207,9 +205,8 @@
             padding: 28px;
             text-align: left;
             transition: all 0.3s;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
         }
-        .bento-card:hover { border-color: var(--secondary); box-shadow: 0 10px 30px rgba(124,111,247,0.1); transform: translateY(-4px); }
+        .bento-card:hover { border-color: var(--secondary); transform: translateY(-4px); background: #1e293b; }
         .bento-icon {
             width: 48px; height: 48px;
             border-radius: 12px;
@@ -229,23 +226,11 @@
             padding: 20px;
             margin: 0 auto;
             max-width: 900px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.07);
-            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             width: 100%;
         }
-        .sim-header {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding: 2px 0 12px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        .sim-header::-webkit-scrollbar { display: none; }
-
         .sim-btn {
-            background: var(--bg-light);
+            background: #1e293b;
             border: 1px solid var(--border);
             color: var(--text-muted);
             padding: 9px 16px;
@@ -256,87 +241,40 @@
             cursor: pointer;
             transition: 0.3s;
             white-space: nowrap;
-            flex-shrink: 0;
         }
         .sim-btn.active { background: var(--secondary); border-color: var(--secondary); color: white; }
 
-        .sim-panels { display: grid; grid-template-columns: 1fr; gap: 20px; }
-
-        .sim-services { display: flex; flex-direction: column; gap: 10px; }
         .sim-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 14px;
-            background: var(--bg-light);
+            background: #1e293b;
             border: 1px solid var(--border);
             border-radius: 12px;
             cursor: pointer;
             transition: 0.2s;
-            min-width: 0;
         }
-        .sim-item:hover { background: rgba(16,185,129,0.06); border-color: var(--success); }
-        .sim-item strong { 
-            font-size: 0.93rem; 
-            color: var(--text-main); 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            min-width: 0; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            white-space: nowrap; 
-        }
-        .sim-item span { 
-            color: var(--success); 
-            font-weight: 700; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-            margin-left: 10px; 
-            font-size: 0.9rem;
-        }
+        .sim-item:hover { background: rgba(16,185,129,0.1); border-color: var(--success); }
+        .sim-item strong { font-size: 0.93rem; color: var(--text-main); }
+        .sim-item span { color: var(--success); font-weight: 700; font-size: 0.9rem;}
 
-        .sim-stats-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 10px; 
-            margin-bottom: 16px; 
-            width: 100%;
-        }
         .sim-stat-box {
-            background: var(--bg-light);
+            background: #1e293b;
             border: 1px solid var(--border);
             padding: 12px 8px;
             border-radius: 12px;
             text-align: center;
-            min-width: 0;
         }
-        .sim-stat-box small { 
-            color: var(--text-muted); 
-            font-size: 0.65rem; 
-            text-transform: uppercase; 
-            font-weight: 700; 
-            letter-spacing: 0.5px; 
-            display: block; 
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .sim-stat-box h4 { 
-            color: var(--success); 
-            font-size: 1.1rem; 
-            font-weight: 800; 
-            white-space: nowrap;
-        }
+        .sim-stat-box small { color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; display: block; }
+        .sim-stat-box h4 { color: var(--success); font-size: 1.1rem; font-weight: 800; }
 
-        .chart-container { height: 200px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+        .chart-container { height: 200px; background: #1e293b; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
 
-        /* NOVO: Card de Aviso do Simulador */
         .sim-notice-card {
             max-width: 900px;
             margin: 20px auto 60px;
-            background: var(--secondary-light);
+            background: rgba(129, 140, 248, 0.05);
             border: 1px dashed var(--secondary);
             border-radius: 16px;
             padding: 16px 20px;
@@ -346,52 +284,41 @@
             text-align: left;
         }
         .sim-notice-card i { color: var(--secondary); font-size: 1.3rem; }
-        .sim-notice-card p { font-size: 0.88rem; color: var(--text-main); font-weight: 500; line-height: 1.4; }
+        .sim-notice-card p { font-size: 0.88rem; color: var(--text-main); font-weight: 500; }
 
-        /* ── "VOCÊ SABIA" + CTA INTEGRADO ── */
+        /* ── "VOCÊ SABIA" ── */
         .truth-section {
             padding: 80px 0;
-            background: #fff8f3;
-            border-top: 1px solid #ffe4cc;
-            border-bottom: 1px solid #ffe4cc;
+            background: #161a24;
+            border-top: 1px solid #2d3748;
+            border-bottom: 1px solid #2d3748;
             text-align: center;
         }
-        .truth-content { max-width: 800px; margin: 0 auto; }
-        .truth-icon { font-size: 3rem; color: #f97316; margin-bottom: 20px; }
-        .truth-content h2 { font-size: 1.9rem; margin-bottom: 20px; line-height: 1.3; color: var(--text-main); font-weight: 800; }
+        .truth-content h2 { font-size: 1.9rem; margin-bottom: 20px; color: var(--text-main); font-weight: 800; }
         .truth-content p { font-size: 1.08rem; color: var(--text-muted); margin-bottom: 36px; }
-        /* CTA integrado na seção "você sabia" */
-        .truth-cta { display: flex; justify-content: center; }
 
         /* ── PARA QUEM É ── */
-        .for-you-section { padding: 60px 0 30px; } /* Reduzido de 80px para 30px */
+        .for-you-section { padding: 60px 0 30px; }
         .for-you-box {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         .for-you-box h3 { font-size: 1.75rem; text-align: center; margin-bottom: 8px; color: var(--text-main); font-weight: 800; }
-        .check-list-big { list-style: none; display: flex; flex-direction: column; gap: 14px; }
         .check-list-big li {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            font-size: 1.02rem;
-            background: var(--bg-light);
+            background: #1e293b;
+            border: 1px solid var(--border);
             padding: 15px;
             border-radius: 12px;
-            border: 1px solid var(--border);
             color: var(--text-main);
+            display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; list-style: none;
         }
-        .check-list-big li i { color: var(--success); font-size: 1.15rem; margin-top: 2px; flex-shrink: 0; }
+        .check-list-big li i { color: var(--success); font-size: 1.15rem; margin-top: 2px; }
 
-        /* ── PRICING ── */
-        .offer-wrapper { padding: 20px 0 30px; } /* Reduzido de 60px/100px para 20px/30px */
+        /* ── PRICINGEscuro ── */
+        .offer-wrapper { padding: 20px 0 30px; }
         .offer-card {
             background: var(--card-bg);
             border: 2px solid var(--primary);
@@ -399,9 +326,9 @@
             max-width: 500px;
             width: 100%;
             margin: 0 auto;
-            overflow: hidden;
             position: relative;
-            box-shadow: 0 20px 50px rgba(249,115,22,0.14);
+            box-shadow: 0 20px 50px rgba(249,115,22,0.2);
+            overflow: hidden;
         }
         .offer-tag {
             background: var(--primary);
@@ -411,77 +338,50 @@
             font-weight: 800;
             font-size: 1.05rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        .offer-body { padding: 36px 24px; }
-        .offer-list { list-style: none; margin-bottom: 28px; }
-        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-main); font-weight: 500; }
-        .offer-list li i { color: var(--success); }
         .price-box {
             text-align: center;
             margin-bottom: 28px;
             padding: 20px;
-            background: rgba(249,115,22,0.05);
+            background: rgba(249,115,22,0.1);
             border-radius: 16px;
-            border: 1px solid rgba(249,115,22,0.1);
+            border: 1px solid rgba(249,115,22,0.2);
         }
-        .old-price { text-decoration: line-through; color: #ef4444; font-size: 1rem; font-weight: 600; }
-        .new-price { font-size: 2.9rem; font-weight: 900; color: var(--success); line-height: 1; margin: 6px 0; }
-        .new-price span { font-size: 1rem; font-weight: 500; color: var(--text-muted); }
-        .guarantee { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 24px; font-size: 0.85rem; color: var(--text-muted); text-align: left; line-height: 1.4; }
+        .old-price { text-decoration: line-through; color: #f87171; font-weight: 600; }
+        .new-price { font-size: 2.9rem; font-weight: 900; color: var(--success); line-height: 1; }
+        .offer-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.95rem; color: var(--text-main); list-style: none;}
+        .offer-list li i { color: var(--success); }
 
-        /* Contador */
-        .countdown-box { margin-top: 24px; text-align: center; }
-        .countdown-box p { font-size: 0.85rem; color: #ef4444; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
-        .timer { display: flex; justify-content: center; gap: 10px; }
-        .time-block { background: var(--bg-light); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; padding: 10px 14px; min-width: 68px; }
-        .time-block strong { display: block; font-size: 1.5rem; font-weight: 800; }
-        .time-block span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .time-block { background: #1e293b; border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; padding: 10px 14px; min-width: 68px; }
+        .time-block span { font-size: 0.65rem; color: var(--text-muted); }
 
-        /* ── FAQ ── */
-        .faq-section { padding: 20px 0 60px; max-width: 800px; margin: 0 auto; } /* Reduzido padding top de 60px para 20px */
-        details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; transition: 0.3s; }
-        summary { padding: 20px; font-weight: 600; font-size: 1.02rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-family: 'Poppins', sans-serif; }
-        summary::-webkit-details-marker { display: none; }
+        /* ── FAQ Dark ── */
+        details { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; }
+        summary { padding: 20px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); list-style: none; }
         summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--primary); transition: 0.3s; }
         details[open] summary::after { transform: rotate(180deg); }
         details p { padding: 0 20px 20px; color: var(--text-muted); font-size: 0.93rem; }
 
-        /* ── RESPONSIVIDADE ── */
-        @media (max-width: 480px) {
-            .sim-wrapper { padding: 15px; }
-            .sim-stat-box h4 { font-size: 0.95rem; }
-            .sim-item { padding: 12px 10px; }
-            .sim-item strong { font-size: 0.85rem; }
-            .sim-item span { font-size: 0.85rem; margin-left: 5px; }
-        }
-        
+        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 0.83rem; color: var(--text-muted); background: #080b14; }
+
         @media (min-width: 640px) {
             .sim-panels { grid-template-columns: 1fr 1.4fr; gap: 24px; }
-            .sim-wrapper { padding: 28px; }
             .sim-stat-box h4 { font-size: 1.2rem; }
-            .sim-stat-box small { font-size: 0.68rem; }
         }
         @media (min-width: 768px) {
             .bento-grid { grid-template-columns: repeat(2, 1fr); }
-            .for-you-box { padding: 48px; }
-            .offer-body { padding: 40px 30px; }
         }
         @media (min-width: 1024px) {
             .bento-grid { grid-template-columns: repeat(4, 1fr); }
         }
-
-        footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-light); }
     </style>
 </head>
 <body>
 
-    <!-- TOP BAR -->
     <div class="top-bar">
         <i class="fas fa-bolt"></i> Restam apenas 14 acessos promocionais.
     </div>
 
-    <!-- LOGO -->
     <div class="logo-container">
         <div class="logo-text">
             <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
@@ -489,7 +389,6 @@
         </div>
     </div>
 
-    <!-- HERO -->
     <header class="hero container reveal active">
         <div class="badge-hero">
             <i class="fas fa-chart-pie"></i> Mais de 5.000 autônomos organizados
@@ -497,12 +396,10 @@
         <h1>Só precisa de 2 minutos por dia para ver <span class="text-green">seu dinheiro finalmente sobrar!</span></h1>
         <p>Pare de perder dinheiro por falta de controle. Retome o comando financeiro do seu trabalho com um painel automático, mais fácil de usar do que mandar um áudio no WhatsApp.</p>
         <div class="btn-wrapper">
-            <!-- Este botão mantém a âncora interna conforme solicitado -->
             <a href="#oferta" class="btn btn-primary">ACESSAR AGORA</a>
         </div>
     </header>
 
-    <!-- MARQUEE -->
     <div class="marquee-container">
         <div class="marquee-content">
             <span>💅 MANICURES E BELEZA</span><span>•</span>
@@ -520,7 +417,6 @@
         </div>
     </div>
 
-    <!-- BENTO GRID -->
     <section class="container reveal">
         <div class="section-title">
             <h2>No <span style="color: var(--secondary);">CashFlow</span> você terá:</h2>
@@ -549,7 +445,6 @@
         </div>
     </section>
 
-    <!-- SIMULADOR -->
     <section class="container reveal">
         <div class="section-title" style="margin-top: 64px;">
             <h2>Veja como funciona na prática</h2>
@@ -557,28 +452,26 @@
         </div>
 
         <div class="sim-wrapper">
-            <div class="sim-header">
+            <div class="sim-header" style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px;">
                 <button class="sim-btn active" onclick="setProfile('manicure')">Manicure / Beleza</button>
                 <button class="sim-btn" onclick="setProfile('barbeiro')">Barbearia</button>
                 <button class="sim-btn" onclick="setProfile('app')">Motorista App</button>
             </div>
 
-            <div class="sim-panels">
-                <!-- Coluna de Ação -->
+            <div class="sim-panels" style="display: grid; gap: 20px;">
                 <div>
                     <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; font-weight: 700;">👆 Simular registros</p>
-                    <div class="sim-services" id="serviceList"></div>
-                    <div id="expenseBtn" class="sim-item" style="margin-top: 10px; border-color: #fca5a5; background: #fef2f2;" onclick="addExpense()">
+                    <div class="sim-services" id="serviceList" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                    <div id="expenseBtn" class="sim-item" style="margin-top: 10px; border-color: #ef4444; background: rgba(239, 68, 68, 0.1);" onclick="addExpense()">
                         <strong><i class="fas fa-minus-circle" style="color: #ef4444;"></i> Adicionar Despesa</strong>
-                        <span style="color: #ef4444; flex-shrink:0;">- R$ 25</span>
+                        <span style="color: #ef4444;">- R$ 25</span>
                     </div>
                 </div>
 
-                <!-- Coluna de Resultados -->
                 <div>
-                    <div class="sim-stats-grid">
+                    <div class="sim-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
                         <div class="sim-stat-box"><small>Entrou Hoje</small><h4 id="statToday">R$ 0</h4></div>
-                        <div class="sim-stat-box"><small>Saiu Hoje</small><h4 id="statOutToday" style="color: #ef4444;">R$ 0</h4></div>
+                        <div class="sim-stat-box"><small>Saiu Hoje</small><h4 id="statOutToday" style="color: #f87171;">R$ 0</h4></div>
                         <div class="sim-stat-box"><small>Total Mês</small><h4 id="statMonth" style="color: var(--text-main);">R$ 2.500</h4></div>
                         <div class="sim-stat-box" style="background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.3);"><small>Lucro do Mês</small><h4 id="statNetMonth">R$ 2.100</h4></div>
                     </div>
@@ -595,26 +488,23 @@
         </div>
     </section>
 
-    <!-- "VOCÊ SABIA" + CTA INTEGRADO -->
     <section class="truth-section reveal">
         <div class="container truth-content">
-            <div class="truth-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="truth-icon" style="font-size: 3rem; color: #f97316; margin-bottom: 20px;"><i class="fas fa-exclamation-triangle"></i></div>
             <h2>Você sabia que 80% dos autônomos não sabem exatamente qual foi o lucro real do mês?</h2>
             <p>A verdade é que a maioria "ACHA" que sabe quanto ganha. Mas quando mistura o dinheiro do negócio com as contas de casa, percebe que o dinheiro foi embora como água e não sobrou nada para investir ou descansar.</p>
             <div class="truth-cta">
                 <div class="btn-wrapper">
-                    <!-- CTA externo -->
                     <a href="#" class="btn btn-primary cta-external">Quero organizar meu dinheiro agora</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PARA QUEM É -->
     <section class="for-you-section container">
         <div class="for-you-box">
             <h3>O CashFlow é para você que...</h3>
-            <ul class="check-list-big">
+            <ul class="check-list-big" style="padding: 0;">
                 <li class="check-item"><i class="fas fa-check-circle"></i> Trabalha o dia inteiro e sente que o dinheiro some no fim do mês.</li>
                 <li class="check-item"><i class="fas fa-check-circle"></i> Anota as vendas num caderno que rasga ou perde nas mensagens do WhatsApp.</li>
                 <li class="check-item"><i class="fas fa-check-circle"></i> Quer saber exatamente o lucro de cada serviço tirando os custos de material.</li>
@@ -624,7 +514,6 @@
         </div>
     </section>
 
-    <!-- OFERTA -->
     <section class="offer-wrapper reveal" id="oferta">
         <div class="container">
             <div class="section-title">
@@ -633,13 +522,13 @@
             </div>
             <div class="offer-card">
                 <div class="offer-tag">🔥 DESCONTO DE LANÇAMENTO</div>
-                <div class="offer-body">
+                <div class="offer-body" style="padding: 36px 24px;">
                     <div class="price-box">
                         <p class="old-price">de R$ 19,90</p>
                         <p class="new-price">R$ 9,90<span>/mês</span></p>
                         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;">Acesso imediato • Cancele quando quiser</p>
                     </div>
-                    <ul class="offer-list">
+                    <ul class="offer-list" style="padding: 0; margin-bottom: 28px;">
                         <li><i class="fas fa-check"></i> Dashboard financeiro completo</li>
                         <li><i class="fas fa-check"></i> Registros ilimitados de atendimentos</li>
                         <li><i class="fas fa-check"></i> Separação de custos e lucros automática</li>
@@ -647,29 +536,23 @@
                         <li><i class="fas fa-check"></i> Funciona no Celular, Tablet e Computador</li>
                         <li><i class="fas fa-check"></i> Suporte prioritário via WhatsApp</li>
                     </ul>
-                    <!-- CTA externo -->
                     <a href="#" class="btn btn-success cta-external" style="width: 100%;">GARANTIR ACESSO AGORA</a>
-                    <div class="countdown-box">
-                        <p>Oferta encerra em:</p>
-                        <div class="timer">
-                            <div class="time-block"><strong id="hrs">02</strong><span>Hrs</span></div>
+                    <div class="countdown-box" style="margin-top: 24px; text-align: center;">
+                        <p style="font-size: 0.85rem; color: #f87171; font-weight: 700; margin-bottom: 10px;">Oferta encerra em:</p>
+                        <div class="timer" style="display: flex; justify-content: center; gap: 10px;">
+                            <div class="time-block"><strong id="hrs" style="display: block; font-size: 1.5rem;">02</strong><span>Hrs</span></div>
                             <div style="font-size: 1.5rem; font-weight: 800; align-self: center; color: var(--text-main);">:</div>
-                            <div class="time-block"><strong id="mins">59</strong><span>Min</span></div>
+                            <div class="time-block"><strong id="mins" style="display: block; font-size: 1.5rem;">59</strong><span>Min</span></div>
                             <div style="font-size: 1.5rem; font-weight: 800; align-self: center; color: var(--text-main);">:</div>
-                            <div class="time-block"><strong id="secs">54</strong><span>Seg</span></div>
+                            <div class="time-block"><strong id="secs" style="display: block; font-size: 1.5rem;">54</strong><span>Seg</span></div>
                         </div>
-                    </div>
-                    <div class="guarantee">
-                        <i class="fas fa-shield-alt" style="font-size: 1.8rem; color: var(--primary);"></i>
-                        <span><strong>Garantia de 7 dias.</strong> Se não gostar da plataforma, devolvemos 100% do seu dinheiro com apenas um clique.</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="faq-section reveal">
+    <section class="faq-section reveal container">
         <div class="section-title">
             <h2>Perguntas Frequentes</h2>
         </div>
@@ -685,36 +568,29 @@
             <summary>Posso cancelar se eu não gostar?</summary>
             <p>Com certeza. Não temos contrato de fidelidade. Você pode cancelar a sua assinatura a qualquer momento com apenas um botão na plataforma.</p>
         </details>
-        <details>
-            <summary>Como recebo meu acesso?</summary>
-            <p>Imediatamente após a confirmação do pagamento, você receberá o link de acesso, seu login e senha diretamente no e-mail cadastrado e no seu WhatsApp.</p>
-        </details>
     </section>
 
     <footer>
         <div class="container">
             <p>© 2025 CashFlow. Todos os direitos reservados.</p>
-            <p style="margin-top: 10px; opacity: 0.7;">Este site não é afiliado ao Facebook ou a qualquer entidade do Facebook. Protegemos rigorosamente os dados dos nossos usuários.</p>
         </div>
     </footer>
 
     <script>
-        Chart.defaults.color = '#64748b';
-        Chart.defaults.borderColor = '#e4e9f0';
+        // Ajuste das cores do gráfico para o Modo Escuro
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.1)';
         Chart.defaults.font.family = "'Poppins', sans-serif";
 
-        // COLOQUE SEU LINK DE CHECKOUT ABAIXO
         const MEU_LINK_CHECKOUT = "https://ggcheckout.app/checkout/v4/Ysk472RyNZ4TFgM7Smmn";
-        
-        // Aplica o link apenas nos CTAs externos
         document.querySelectorAll('.cta-external').forEach(el => el.href = MEU_LINK_CHECKOUT);
 
-        // ── SIMULADOR ──
         const profiles = {
             manicure: { services:[{ id:'m1', name:'Mão simples', price:30 },{ id:'m2', name:'Pé e Mão', price:65 },{ id:'m3', name:'Alongamento', price:120 }], initial:[5,3,2] },
             barbeiro: { services:[{ id:'b1', name:'Corte Degradê', price:40 },{ id:'b2', name:'Barba Terapia', price:30 },{ id:'b3', name:'Combo Completo', price:65 }], initial:[8,4,6] },
             app:      { services:[{ id:'a1', name:'Corrida Curta', price:12 },{ id:'a2', name:'Corrida Média', price:25 },{ id:'a3', name:'Viagem Longa', price:60 }], initial:[15,8,3] }
         };
+
         let currentProfile = 'manicure';
         let stats = { today:0, outToday:0, month:2500, outMonth:400, count:35, services:{} };
         let mainChart;
@@ -740,9 +616,6 @@
                 div.onclick = () => {
                     stats.today += s.price; stats.month += s.price; stats.count++;
                     stats.services[s.id]++;
-                    div.style.transform = 'scale(0.98)';
-                    div.style.backgroundColor = 'rgba(16,185,129,0.1)';
-                    setTimeout(() => { div.style.transform = ''; div.style.backgroundColor = ''; }, 150);
                     updateDashboard();
                 };
                 list.appendChild(div);
@@ -751,10 +624,6 @@
 
         function addExpense() {
             stats.outToday += 25; stats.outMonth += 25;
-            const btn = document.getElementById('expenseBtn');
-            btn.style.transform = 'scale(0.98)';
-            btn.style.backgroundColor = '#fee2e2';
-            setTimeout(() => { btn.style.transform = ''; btn.style.backgroundColor = '#fef2f2'; }, 150);
             updateDashboard();
         }
 
@@ -769,7 +638,7 @@
         function initCharts() {
             const ctx = document.getElementById('mainChart').getContext('2d');
             let gradient = ctx.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, 'rgba(16,185,129,0.18)');
+            gradient.addColorStop(0, 'rgba(16,185,129,0.3)');
             gradient.addColorStop(1, 'rgba(16,185,129,0.0)');
             mainChart = new Chart(ctx, {
                 type: 'line',
@@ -780,10 +649,6 @@
                         data: [400,350,500,450,600,0],
                         borderColor: '#10b981',
                         borderWidth: 2.5,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#10b981',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
                         tension: 0.4,
                         fill: true,
                         backgroundColor: gradient
@@ -795,7 +660,7 @@
                     plugins: { legend: { display: false } },
                     scales: {
                         x: { grid: { display: false } },
-                        y: { beginAtZero: true, border: { dash: [4,4] } }
+                        y: { beginAtZero: true }
                     }
                 }
             });
@@ -806,7 +671,6 @@
             mainChart.update();
         }
 
-        // ── CONTADOR REGRESSIVO ──
         function startTimer(duration) {
             let timer = duration;
             setInterval(() => {
@@ -820,7 +684,6 @@
             }, 1000);
         }
 
-        // ── SCROLL REVEAL GERAL ──
         function reveal() {
             document.querySelectorAll('.reveal').forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 50) {
@@ -829,18 +692,15 @@
             });
         }
 
-        // ── CHECKLIST COM ANIMAÇÃO EM CASCATA ──
         function revealChecklist() {
             document.querySelectorAll('.check-item').forEach((item, i) => {
-                const top = item.getBoundingClientRect().top;
-                if (top < window.innerHeight - 40) {
+                if (item.getBoundingClientRect().top < window.innerHeight - 40) {
                     setTimeout(() => item.classList.add('active'), i * 120);
                 }
             });
         }
 
         window.addEventListener('scroll', () => { reveal(); revealChecklist(); });
-
         window.onload = () => {
             initCharts();
             setProfile('manicure');
